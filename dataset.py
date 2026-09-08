@@ -8,21 +8,21 @@ DATA_ROOT = Path("data")
 IMG_SIZE = 299
 SEED = 42
 
-IMAGENET_MEAN = [0.485, 0.456, 0.406]
-IMAGENET_STD = [0.229, 0.224, 0.225]
+XCEPTION_MEAN = [0.5, 0.5, 0.5]
+XCEPTION_STD = [0.5, 0.5, 0.5]
 
 train_tf = transforms.Compose([
     transforms.Resize((IMG_SIZE, IMG_SIZE)),
     transforms.RandomHorizontalFlip(),
     transforms.RandomRotation(10),
     transforms.ToTensor(),
-    transforms.Normalize(IMAGENET_MEAN, IMAGENET_STD),
+    transforms.Normalize(XCEPTION_MEAN, XCEPTION_STD),
 ])
 
 eval_tf = transforms.Compose([
     transforms.Resize((IMG_SIZE, IMG_SIZE)),
     transforms.ToTensor(),
-    transforms.Normalize(IMAGENET_MEAN, IMAGENET_STD),
+    transforms.Normalize(XCEPTION_MEAN, XCEPTION_STD),
 ])
 
 
