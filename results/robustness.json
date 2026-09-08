@@ -1,0 +1,246 @@
+{
+  "baseline_accuracy": 0.94875,
+  "sweeps": {
+    "brightness": {
+      "trained_on": false,
+      "levels": [
+        {
+          "level": -0.4,
+          "accuracy": 0.936875,
+          "flip_rate": 0.0275,
+          "mean_conf": 0.9689306020736694
+        },
+        {
+          "level": -0.2,
+          "accuracy": 0.946875,
+          "flip_rate": 0.011875,
+          "mean_conf": 0.9768161177635193
+        },
+        {
+          "level": -0.1,
+          "accuracy": 0.94625,
+          "flip_rate": 0.008125,
+          "mean_conf": 0.9781864881515503
+        },
+        {
+          "level": 0.0,
+          "accuracy": 0.94875,
+          "flip_rate": 0.0,
+          "mean_conf": 0.9795452952384949
+        },
+        {
+          "level": 0.1,
+          "accuracy": 0.9475,
+          "flip_rate": 0.003125,
+          "mean_conf": 0.9793943762779236
+        },
+        {
+          "level": 0.2,
+          "accuracy": 0.9475,
+          "flip_rate": 0.006875,
+          "mean_conf": 0.9772040843963623
+        },
+        {
+          "level": 0.4,
+          "accuracy": 0.934375,
+          "flip_rate": 0.024375,
+          "mean_conf": 0.9693140983581543
+        }
+      ]
+    },
+    "contrast": {
+      "trained_on": false,
+      "levels": [
+        {
+          "level": 0.5,
+          "accuracy": 0.94625,
+          "flip_rate": 0.01375,
+          "mean_conf": 0.9796507358551025
+        },
+        {
+          "level": 0.75,
+          "accuracy": 0.946875,
+          "flip_rate": 0.00875,
+          "mean_conf": 0.9802172183990479
+        },
+        {
+          "level": 0.9,
+          "accuracy": 0.948125,
+          "flip_rate": 0.004375,
+          "mean_conf": 0.9797816276550293
+        },
+        {
+          "level": 1.0,
+          "accuracy": 0.94875,
+          "flip_rate": 0.0,
+          "mean_conf": 0.9795454144477844
+        },
+        {
+          "level": 1.1,
+          "accuracy": 0.944375,
+          "flip_rate": 0.005625,
+          "mean_conf": 0.9793654680252075
+        },
+        {
+          "level": 1.5,
+          "accuracy": 0.93375,
+          "flip_rate": 0.025,
+          "mean_conf": 0.9732000827789307
+        },
+        {
+          "level": 2.0,
+          "accuracy": 0.910625,
+          "flip_rate": 0.051875,
+          "mean_conf": 0.9586319923400879
+        }
+      ]
+    },
+    "rotation": {
+      "trained_on": true,
+      "levels": [
+        {
+          "level": -30,
+          "accuracy": 0.9225,
+          "flip_rate": 0.041875,
+          "mean_conf": 0.9608235955238342
+        },
+        {
+          "level": -15,
+          "accuracy": 0.93875,
+          "flip_rate": 0.021875,
+          "mean_conf": 0.9745101928710938
+        },
+        {
+          "level": -5,
+          "accuracy": 0.940625,
+          "flip_rate": 0.0175,
+          "mean_conf": 0.977203905582428
+        },
+        {
+          "level": 0,
+          "accuracy": 0.94875,
+          "flip_rate": 0.0,
+          "mean_conf": 0.9795452952384949
+        },
+        {
+          "level": 5,
+          "accuracy": 0.943125,
+          "flip_rate": 0.01625,
+          "mean_conf": 0.9785972833633423
+        },
+        {
+          "level": 15,
+          "accuracy": 0.939375,
+          "flip_rate": 0.023125,
+          "mean_conf": 0.9743425250053406
+        },
+        {
+          "level": 30,
+          "accuracy": 0.918125,
+          "flip_rate": 0.0425,
+          "mean_conf": 0.9514248371124268
+        }
+      ]
+    },
+    "shift": {
+      "trained_on": true,
+      "levels": [
+        {
+          "level": -30,
+          "accuracy": 0.93875,
+          "flip_rate": 0.014375,
+          "mean_conf": 0.9740908741950989
+        },
+        {
+          "level": -15,
+          "accuracy": 0.945625,
+          "flip_rate": 0.00875,
+          "mean_conf": 0.9795085787773132
+        },
+        {
+          "level": -5,
+          "accuracy": 0.948125,
+          "flip_rate": 0.01375,
+          "mean_conf": 0.9799346923828125
+        },
+        {
+          "level": 0,
+          "accuracy": 0.94875,
+          "flip_rate": 0.0,
+          "mean_conf": 0.9795452952384949
+        },
+        {
+          "level": 5,
+          "accuracy": 0.94625,
+          "flip_rate": 0.013125,
+          "mean_conf": 0.9789295792579651
+        },
+        {
+          "level": 15,
+          "accuracy": 0.94875,
+          "flip_rate": 0.013125,
+          "mean_conf": 0.980172336101532
+        },
+        {
+          "level": 30,
+          "accuracy": 0.948125,
+          "flip_rate": 0.014375,
+          "mean_conf": 0.9801373481750488
+        }
+      ]
+    },
+    "noise": {
+      "trained_on": false,
+      "levels": [
+        {
+          "level": 0.0,
+          "accuracy": 0.94875,
+          "flip_rate": 0.0,
+          "mean_conf": 0.9795452952384949
+        },
+        {
+          "level": 0.005,
+          "accuracy": 0.943125,
+          "flip_rate": 0.014375,
+          "mean_conf": 0.9775500297546387
+        },
+        {
+          "level": 0.01,
+          "accuracy": 0.916875,
+          "flip_rate": 0.04625,
+          "mean_conf": 0.9639338850975037
+        },
+        {
+          "level": 0.02,
+          "accuracy": 0.79625,
+          "flip_rate": 0.170625,
+          "mean_conf": 0.8948619365692139
+        },
+        {
+          "level": 0.03,
+          "accuracy": 0.495625,
+          "flip_rate": 0.478125,
+          "mean_conf": 0.8708879351615906
+        },
+        {
+          "level": 0.05,
+          "accuracy": 0.266875,
+          "flip_rate": 0.715625,
+          "mean_conf": 0.9806287884712219
+        },
+        {
+          "level": 0.1,
+          "accuracy": 0.2475,
+          "flip_rate": 0.735625,
+          "mean_conf": 0.9966769218444824
+        },
+        {
+          "level": 0.2,
+          "accuracy": 0.244375,
+          "flip_rate": 0.73875,
+          "mean_conf": 0.8060782551765442
+        }
+      ]
+    }
+  }
+}
