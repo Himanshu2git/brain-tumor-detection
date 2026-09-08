@@ -1,3 +1,4 @@
+import argparse
 import time
 from pathlib import Path
 
@@ -8,8 +9,6 @@ from torch.utils.data import DataLoader
 from dataset import build_datasets
 from model import build_model
 
-BATCH_SIZE = 32
-LR = 1e-3
 MAX_EPOCHS = 30
 PATIENCE = 5
 NUM_WORKERS = 4
@@ -40,21 +39,32 @@ def run_epoch(model, loader, criterion, device, optimizer=None):
 
 
 def main():
+    p = argparse.ArgumentParser()
+    p.add_argument("--finetune", action="store_true")
+    p.add_argument("--batch-size", type=int, default=32)
+    p.add_argument("--lr", type=float, default=1e-3)
+    p.add_argument("--out", default="best.pt")
+    args = p.parse_args()
+
     torch.manual_seed(42)
     device = "cuda"
     CKPT.mkdir(exist_ok=True)
 
     train_ds, val_ds, _, classes = build_datasets()
-    train_loader = DataLoader(train_ds, batch_size=BATCH_SIZE, shuffle=True,
+    train_loader = DataLoader(train_ds, batch_size=args.batch_size, shuffle=True,
                               num_workers=NUM_WORKERS, pin_memory=True)
-    val_loader = DataLoader(val_ds, batch_size=BATCH_SIZE, shuffle=False,
+    val_loader = DataLoader(val_ds, batch_size=args.batch_size, shuffle=False,
                             num_workers=NUM_WORKERS, pin_memory=True)
 
-    model = build_model(freeze_backbone=True).to(device)
+    model = build_model(freeze_backbone=not args.finetune).to(device)
     criterion = nn.CrossEntropyLoss()
     optimizer = torch.optim.Adam(
-        [p for p in model.parameters() if p.requires_grad], lr=LR
+        [p_ for p_ in model.parameters() if p_.requires_grad], lr=args.lr
     )
+
+    trainable = sum(p_.numel() for p_ in model.parameters() if p_.requires_grad)
+    print(f"mode: {'finetune' if args.finetune else 'frozen'}  "
+          f"batch {args.batch_size}  lr {args.lr}  trainable {trainable:,}")
 
     best_val_loss = float("inf")
     epochs_without_improvement = 0
@@ -69,7 +79,7 @@ def main():
         if va_loss < best_val_loss:
             best_val_loss = va_loss
             epochs_without_improvement = 0
-            torch.save(model.state_dict(), CKPT / "best.pt")
+            torch.save(model.state_dict(), CKPT / args.out)
             marker = "  <- saved"
         else:
             epochs_without_improvement += 1
