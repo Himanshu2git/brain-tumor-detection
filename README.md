@@ -164,9 +164,9 @@ in the project description; the provenance scripts do not run without it.
 
 ## Running the pipeline
 
-Only `train.py` defines an argparse interface. Every other script takes no
-command-line arguments and reads its inputs from hard-coded paths, so each is
-run bare. The order below matters because later steps consume artifacts written
+Only `train.py` and `evaluate.py` define an argparse interface. Every other
+script takes no command-line arguments and reads its inputs from hard-coded
+paths, so each is run bare. The order below matters because later steps consume artifacts written
 by earlier ones.
 
 Optional sanity checks. `dataset.py` prints split sizes and the tensor value
@@ -186,9 +186,9 @@ patience (5), dataloader workers (4), and the checkpoint directory
 (`checkpoints/`) are module constants and are not configurable from the command
 line.
 
-`--out` must be set explicitly, because `evaluate.py` looks for the two
-checkpoints under fixed names, `frozen_baseline.pt` and `finetuned.pt`, which
-are not the argparse default.
+`--out` defaults to `best.pt`, so both runs would otherwise overwrite the same
+file. The commands below name the two checkpoints explicitly, which also matches
+what `evaluate.py` looks for by default.
 
 ```bash
 python train.py --batch-size 32 --lr 1e-3 --out frozen_baseline.pt
@@ -212,6 +212,18 @@ and `results/test_metrics.json`.
 ```bash
 python evaluate.py
 ```
+
+It takes two optional arguments, `--frozen` and `--finetuned`, which default to
+`checkpoints/frozen_baseline.pt` and `checkpoints/finetuned.pt`. Pass them when
+the checkpoints are named otherwise -- for example after a `train.py` run left
+at the `--out` default:
+
+```bash
+python evaluate.py --frozen checkpoints/best.pt
+```
+
+A missing checkpoint is reported by path before any model is loaded, rather than
+raising from `torch.load`.
 
 ### Grad-CAM figures
 

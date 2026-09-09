@@ -1,3 +1,4 @@
+import argparse
 import json
 from pathlib import Path
 
@@ -15,9 +16,9 @@ NUM_WORKERS = 4
 CKPT = Path("checkpoints")
 RESULTS = Path("results")
 
-MODELS = {
-    "frozen": "frozen_baseline.pt",
-    "finetuned": "finetuned.pt",
+DEFAULT_CKPTS = {
+    "frozen": CKPT / "frozen_baseline.pt",
+    "finetuned": CKPT / "finetuned.pt",
 }
 
 
@@ -33,7 +34,24 @@ def predict(model, loader, device):
     return torch.cat(all_probs).numpy(), torch.cat(all_labels).numpy()
 
 
+def parse_args():
+    p = argparse.ArgumentParser()
+    for name, default in DEFAULT_CKPTS.items():
+        p.add_argument(f"--{name}", type=Path, default=default,
+                       help=f"checkpoint for the {name} model (default: {default})")
+    args = p.parse_args()
+
+    models = {name: getattr(args, name) for name in DEFAULT_CKPTS}
+    for name, path in models.items():
+        if not path.is_file():
+            raise SystemExit(f"checkpoint not found: {path}\n"
+                             f"pass --{name} PATH, or train it with "
+                             f"train.py --out {path.name}")
+    return models
+
+
 def main():
+    models = parse_args()
     device = "cuda"
     RESULTS.mkdir(exist_ok=True)
 
@@ -44,9 +62,9 @@ def main():
 
     summary = {}
 
-    for name, ckpt_file in MODELS.items():
+    for name, ckpt_path in models.items():
         model = build_model(freeze_backbone=False)
-        model.load_state_dict(torch.load(CKPT / ckpt_file, map_location=device))
+        model.load_state_dict(torch.load(ckpt_path, map_location=device))
         model = model.to(device)
 
         probs, labels = predict(model, test_loader, device)
@@ -57,7 +75,7 @@ def main():
         report = classification_report(labels, preds, target_names=classes,
                                        digits=4, output_dict=True)
 
-        print(f"=== {name} ({ckpt_file}) ===")
+        print(f"=== {name} ({ckpt_path}) ===")
         print(f"test accuracy: {acc:.4f}\n")
         print(classification_report(labels, preds, target_names=classes, digits=4))
         print("confusion matrix (rows = true, cols = predicted):")
